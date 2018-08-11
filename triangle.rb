@@ -14,6 +14,22 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
+  if a==b
+    if b==c
+      return :equilateral
+    else
+      return :isosceles
+    end
+  else
+    if b==c
+      return :isosceles
+    elsif a==c
+      return :isosceles
+    else
+      return :scalene
+    end
+  end
+
   # WRITE THIS CODE
 end
 
