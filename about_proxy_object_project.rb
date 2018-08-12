@@ -13,12 +13,32 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
+  #attr_reader :messages   # want to just return the keys of our hash now
   def initialize(target_object)
     @object = target_object
     # ADD MORE CODE HERE
+    @messages = Hash.new(0)
   end
 
   # WRITE CODE HERE
+  def method_missing(method_name, *args, &block)
+    @messages[method_name] += 1
+    @object.send(method_name,*args, &block)
+
+  end
+
+  def called?(message)
+    #@messages.include?(message)
+    @messages.keys.include?(message)
+  end
+
+  def number_of_times_called(message)
+    @messages[message]
+  end
+
+  def messages
+    @messages.keys
+  end
 end
 
 # The proxy object should pass the following Koan:
