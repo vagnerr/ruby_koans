@@ -30,6 +30,31 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
+  score = 0
+  counts = [0,0,0,0,0,0,0] # or you need a lot of safety checks
+  #count up the matchin die.
+  # slow
+  #(1..6).each do |i|
+  #  counts[i] = (dice.select { |item| item == i }).size
+  #end
+  # more efficient?...
+  dice.each do |die|
+    counts[die]+=1
+  end
+
+
+  # score up the multiples (Abusing the integer math :-} )
+  # 1
+  score += ((counts[1]/3)*1000) + (counts[1]%3 *100)
+  # 5
+  score += ((counts[5]/3)*500) + (counts[5]%3 *50)
+  # 2,3,4,6
+  [2,3,4,6].each do |i|
+    score += ((counts[i]/3)*100*i)
+  end
+
+  return score
+
   # You need to write this method
 end
 
